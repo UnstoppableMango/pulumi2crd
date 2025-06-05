@@ -1,11 +1,13 @@
-name: Test
+name: simple
 types:
-  baremetal:coreutils:CatArgs:
+  simple:coreutils:CatArgs:
+    type: object
     properties:
       e:
-        type: boolean
+        type: string
 resources:
-  baremetal:coreutils:Cat:
+  simple:coreutils:Cat:
+    type: object
     properties:
       args:
-        $ref: '#/types/baremetal:coreutils:CatArg'
+        $ref: '#/types/simple:coreutils:CatArgs'

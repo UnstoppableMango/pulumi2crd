@@ -3,7 +3,7 @@ package pulumi2crd
 import (
 	"fmt"
 
-	"github.com/pulumi/pulumi/pkg/codegen/schema"
+	"github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	extensionv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/kubebuilder/v4/pkg/model/resource"

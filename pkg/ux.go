@@ -3,7 +3,7 @@ package pulumi2crd
 import (
 	"context"
 
-	"github.com/pulumi/pulumi/pkg/codegen/schema"
+	"github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	uxv1alpha1 "github.com/unstoppablemango/ux/gen/dev/unmango/ux/v1alpha1"
 	"github.com/unstoppablemango/ux/pkg/payload"
 	"github.com/unstoppablemango/ux/sdk/plugin"
@@ -31,7 +31,7 @@ func (g Generator) Generate(ctx context.Context, req *uxv1alpha1.GenerateRequest
 		return nil, err
 	}
 
-	pack, err := schema.ImportSpec(spec)
+	pack, err := schema.ImportSpec(spec, map[string]schema.Language{}, schema.ValidationOptions{})
 	if err != nil {
 		return nil, err
 	}
