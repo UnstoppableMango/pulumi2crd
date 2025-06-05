@@ -31,7 +31,12 @@ func (g Generator) Generate(ctx context.Context, req *uxv1alpha1.GenerateRequest
 		return nil, err
 	}
 
-	crds := ConvertResources(spec)
+	pack, err := schema.ImportSpec(spec)
+	if err != nil {
+		return nil, err
+	}
+
+	crds := ConvertResources(pack)
 	data, err := codec.Marshal(crds)
 	if err != nil {
 		return nil, err

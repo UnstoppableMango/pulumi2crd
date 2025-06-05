@@ -28,18 +28,18 @@ var metadataProp = extensionv1.JSONSchemaProps{Type: "object"}
 
 // https://github.com/kubernetes-sigs/controller-tools/blob/main/pkg/crd/gen.go
 
-func Convert(name string, spec schema.ResourceSpec) *extensionv1.CustomResourceDefinition {
-	plural := resource.RegularPlural(name)
+func Convert(spec *schema.Resource) *extensionv1.CustomResourceDefinition {
+	plural := resource.RegularPlural(spec.Token) // TODO: Extract name
 
 	return &extensionv1.CustomResourceDefinition{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: name,
+			Name: spec.Token,
 		},
 		Spec: extensionv1.CustomResourceDefinitionSpec{
 			Group: "",
 			Names: extensionv1.CustomResourceDefinitionNames{
 				Plural:   plural,
-				Singular: name,
+				Singular: spec.Token,
 				Kind:     "",
 				ListKind: "",
 			},
@@ -50,14 +50,14 @@ func Convert(name string, spec schema.ResourceSpec) *extensionv1.CustomResourceD
 				Storage: true,
 				Schema: &extensionv1.CustomResourceValidation{
 					OpenAPIV3Schema: &extensionv1.JSONSchemaProps{
-						Description: SchemaDescription(name, plural),
+						Description: SchemaDescription(spec.Token, plural),
 						Type:        "object",
 						Properties: map[string]extensionv1.JSONSchemaProps{
 							"apiVersion": apiVersionProp,
 							"kind":       kindProp,
 							"metadata":   metadataProp,
-							"spec":       Spec(name, spec),
-							"status":     Status(name, spec),
+							"spec":       Spec(spec),
+							"status":     Status(spec),
 						},
 					},
 				},
@@ -68,44 +68,45 @@ func Convert(name string, spec schema.ResourceSpec) *extensionv1.CustomResourceD
 	}
 }
 
-func ConvertResources(spec schema.PackageSpec) []*extensionv1.CustomResourceDefinition {
+func ConvertResources(spec *schema.Package) []*extensionv1.CustomResourceDefinition {
 	crds := []*extensionv1.CustomResourceDefinition{}
-	for name, r := range spec.Resources {
-		crds = append(crds, Convert(name, r))
+	for _, r := range spec.Resources {
+		crds = append(crds, Convert(r))
 	}
 
 	return crds
 }
 
-func ConvertTypes(spec schema.PackageSpec) map[string]extensionv1.JSONSchemaProps {
+func ConvertTypes(spec schema.Package) map[string]extensionv1.JSONSchemaProps {
 	types := map[string]extensionv1.JSONSchemaProps{}
-	for name, t := range spec.Types {
-		types[name] = ConvertType(name, t)
+	for _, t := range spec.Types {
+		// TODO: I suppose the name will have to be extracted from the underlying type
+		types[t.String()] = ConvertType(t)
 	}
 
 	return types
 }
 
-func ConvertType(name string, typ schema.ObjectTypeSpec) extensionv1.JSONSchemaProps {
+func ConvertType(typ schema.Type) extensionv1.JSONSchemaProps {
 	return extensionv1.JSONSchemaProps{}
 }
 
-func Spec(name string, spec schema.ResourceSpec) extensionv1.JSONSchemaProps {
+func Spec(spec *schema.Resource) extensionv1.JSONSchemaProps {
 	props := extensionv1.JSONSchemaProps{
-		Description: spec.Description,
+		Description: spec.Comment,
 	}
 
-	for name, p := range spec.InputProperties {
-		props.Properties[name] = extensionv1.JSONSchemaProps{
-			Description: p.Description,
-			Type:        p.Type,
+	for _, p := range spec.InputProperties {
+		props.Properties[p.Name] = extensionv1.JSONSchemaProps{
+			Description: p.Comment,
+			Type:        p.Type.String(),
 		}
 	}
 
 	return props
 }
 
-func Status(name string, spec schema.ResourceSpec) extensionv1.JSONSchemaProps {
+func Status(spec *schema.Resource) extensionv1.JSONSchemaProps {
 	return extensionv1.JSONSchemaProps{}
 }
 
