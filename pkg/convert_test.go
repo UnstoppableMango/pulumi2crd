@@ -25,5 +25,7 @@ var _ = Describe("Convert", func() {
 		crd := pulumi2crd.Convert(name, r)
 
 		Expect(crd).NotTo(BeNil())
+		Expect(crd.Name).To(Equal(name))
+		Expect(crd.Spec.Names.Plural).To(Equal("Cats"))
 	})
 })

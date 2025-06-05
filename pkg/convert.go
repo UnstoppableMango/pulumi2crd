@@ -45,13 +45,12 @@ func Convert(name string, spec schema.ResourceSpec) *extensionv1.CustomResourceD
 			},
 			Scope: extensionv1.NamespaceScoped,
 			Versions: []extensionv1.CustomResourceDefinitionVersion{{
-				Name:    "",
+				Name:    "v1alpha1",
 				Served:  true,
 				Storage: true,
 				Schema: &extensionv1.CustomResourceValidation{
 					OpenAPIV3Schema: &extensionv1.JSONSchemaProps{
-						// https://github.com/kubernetes-sigs/kubebuilder/blob/1d79aa1ec8204a11ae6be06cb96bae77dd0210bf/pkg/plugins/golang/deploy-image/v1alpha1/scaffolds/internal/templates/api/types.go#L117
-						Description: fmt.Sprintf("%s is the Schema for the %s API", name, plural),
+						Description: SchemaDescription(name, plural),
 						Type:        "object",
 						Properties: map[string]extensionv1.JSONSchemaProps{
 							"apiVersion": apiVersionProp,
@@ -69,7 +68,7 @@ func Convert(name string, spec schema.ResourceSpec) *extensionv1.CustomResourceD
 	}
 }
 
-func ConvertResources(spec *schema.PackageSpec) []*extensionv1.CustomResourceDefinition {
+func ConvertResources(spec schema.PackageSpec) []*extensionv1.CustomResourceDefinition {
 	crds := []*extensionv1.CustomResourceDefinition{}
 	for name, r := range spec.Resources {
 		crds = append(crds, Convert(name, r))
@@ -78,12 +77,39 @@ func ConvertResources(spec *schema.PackageSpec) []*extensionv1.CustomResourceDef
 	return crds
 }
 
+func ConvertTypes(spec schema.PackageSpec) map[string]extensionv1.JSONSchemaProps {
+	types := map[string]extensionv1.JSONSchemaProps{}
+	for name, t := range spec.Types {
+		types[name] = ConvertType(name, t)
+	}
+
+	return types
+}
+
+func ConvertType(name string, typ schema.ObjectTypeSpec) extensionv1.JSONSchemaProps {
+	return extensionv1.JSONSchemaProps{}
+}
+
 func Spec(name string, spec schema.ResourceSpec) extensionv1.JSONSchemaProps {
-	return extensionv1.JSONSchemaProps{
+	props := extensionv1.JSONSchemaProps{
 		Description: spec.Description,
 	}
+
+	for name, p := range spec.InputProperties {
+		props.Properties[name] = extensionv1.JSONSchemaProps{
+			Description: p.Description,
+			Type:        p.Type,
+		}
+	}
+
+	return props
 }
 
 func Status(name string, spec schema.ResourceSpec) extensionv1.JSONSchemaProps {
 	return extensionv1.JSONSchemaProps{}
+}
+
+func SchemaDescription(name, plural string) string {
+	// https://github.com/kubernetes-sigs/kubebuilder/blob/1d79aa1ec8204a11ae6be06cb96bae77dd0210bf/pkg/plugins/golang/deploy-image/v1alpha1/scaffolds/internal/templates/api/types.go#L117
+	return fmt.Sprintf("%s is the Schema for the %s API", name, plural)
 }

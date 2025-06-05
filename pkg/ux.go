@@ -26,8 +26,8 @@ func (g Generator) Generate(ctx context.Context, req *uxv1alpha1.GenerateRequest
 		return nil, err
 	}
 
-	spec := &schema.PackageSpec{}
-	if err = codec.Unmarshal(req.Payload.Data, spec); err != nil {
+	var spec schema.PackageSpec
+	if err = codec.Unmarshal(req.Payload.Data, &spec); err != nil {
 		return nil, err
 	}
 
