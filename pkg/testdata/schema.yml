@@ -1,0 +1,11 @@
+name: Test
+types:
+  baremetal:coreutils:CatArgs:
+    properties:
+      e:
+        type: boolean
+resources:
+  baremetal:coreutils:Cat:
+    properties:
+      args:
+        $ref: '#/types/baremetal:coreutils:CatArg'

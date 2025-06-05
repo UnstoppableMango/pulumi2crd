@@ -1,0 +1,11 @@
+.make/
+.vscode/
+bin/
+.dockerignore
+.editorconfig
+.gitignore
+Dockerfile
+go.work
+go.work.sum
+LICENSE
+Makefile
