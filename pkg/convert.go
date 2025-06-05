@@ -24,6 +24,8 @@ In CamelCase.
 More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds`,
 }
 
+var metadataProp = extensionv1.JSONSchemaProps{Type: "object"}
+
 // https://github.com/kubernetes-sigs/controller-tools/blob/main/pkg/crd/gen.go
 
 func Convert(name string, spec schema.ResourceSpec) *extensionv1.CustomResourceDefinition {
@@ -36,12 +38,10 @@ func Convert(name string, spec schema.ResourceSpec) *extensionv1.CustomResourceD
 		Spec: extensionv1.CustomResourceDefinitionSpec{
 			Group: "",
 			Names: extensionv1.CustomResourceDefinitionNames{
-				Plural:     "",
-				Singular:   "",
-				ShortNames: []string{},
-				Kind:       "",
-				ListKind:   "",
-				Categories: []string{},
+				Plural:   plural,
+				Singular: name,
+				Kind:     "",
+				ListKind: "",
 			},
 			Scope: extensionv1.NamespaceScoped,
 			Versions: []extensionv1.CustomResourceDefinitionVersion{{
@@ -56,8 +56,9 @@ func Convert(name string, spec schema.ResourceSpec) *extensionv1.CustomResourceD
 						Properties: map[string]extensionv1.JSONSchemaProps{
 							"apiVersion": apiVersionProp,
 							"kind":       kindProp,
-							"metadata":   {Type: "object"},
+							"metadata":   metadataProp,
 							"spec":       Spec(name, spec),
+							"status":     Status(name, spec),
 						},
 					},
 				},
@@ -81,4 +82,8 @@ func Spec(name string, spec schema.ResourceSpec) extensionv1.JSONSchemaProps {
 	return extensionv1.JSONSchemaProps{
 		Description: spec.Description,
 	}
+}
+
+func Status(name string, spec schema.ResourceSpec) extensionv1.JSONSchemaProps {
+	return extensionv1.JSONSchemaProps{}
 }
