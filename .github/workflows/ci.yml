@@ -40,6 +40,7 @@ jobs:
 
   dprint:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     env:
       # renovate: datasource=github-tags depName=dprint/dprint
       DPRINT_VERSION: 0.50.0
