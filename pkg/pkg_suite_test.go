@@ -1,8 +1,6 @@
 package pulumi2crd_test
 
 import (
-	"embed"
-	"path/filepath"
 	"testing"
 
 	. "github.com/onsi/ginkgo/v2"
@@ -11,21 +9,9 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-//go:embed testdata
-var testdata embed.FS
-
 func TestPkg(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Pkg Suite")
-}
-
-func readPackageFile(name string) *schema.Package {
-	GinkgoHelper()
-
-	data, err := testdata.ReadFile(filepath.Join("testdata", name))
-	Expect(err).NotTo(HaveOccurred())
-
-	return parsePackageData(data)
 }
 
 func parsePackageString(yml string) *schema.Package {
