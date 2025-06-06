@@ -25,6 +25,18 @@ func readPackageFile(name string) *schema.Package {
 	data, err := testdata.ReadFile(filepath.Join("testdata", name))
 	Expect(err).NotTo(HaveOccurred())
 
+	return parsePackageData(data)
+}
+
+func parsePackageString(yml string) *schema.Package {
+	GinkgoHelper()
+
+	return parsePackageData([]byte(yml))
+}
+
+func parsePackageData(data []byte) *schema.Package {
+	GinkgoHelper()
+
 	var spec schema.PackageSpec
 	Expect(yaml.Unmarshal(data, &spec)).To(Succeed())
 	pkg, err := schema.ImportSpec(spec, map[string]schema.Language{}, schema.ValidationOptions{})
