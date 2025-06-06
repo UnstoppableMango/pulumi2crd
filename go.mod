@@ -13,7 +13,7 @@ require (
 	github.com/onsi/gomega v1.37.0
 	github.com/pulumi/pulumi/pkg/v3 v3.174.0
 	github.com/unstoppablemango/ux v0.0.3
-	github.com/unstoppablemango/ux/sdk v0.0.0-20250604030425-e50974975a95
+	github.com/unstoppablemango/ux/sdk v0.0.0-20250605140044-6c187b57844a
 	gopkg.in/yaml.v3 v3.0.1
 	k8s.io/apiextensions-apiserver v0.33.1
 	k8s.io/apimachinery v0.33.1
