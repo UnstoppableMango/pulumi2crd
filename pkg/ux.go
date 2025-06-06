@@ -31,12 +31,19 @@ func (g Generator) Generate(ctx context.Context, req *uxv1alpha1.GenerateRequest
 		return nil, err
 	}
 
-	pack, err := schema.ImportSpec(spec, map[string]schema.Language{}, schema.ValidationOptions{})
+	pkg, err := schema.ImportSpec(spec,
+		map[string]schema.Language{},
+		schema.ValidationOptions{},
+	)
 	if err != nil {
 		return nil, err
 	}
 
-	crds := ConvertResources(pack)
+	crds, err := ConvertResources(pkg)
+	if err != nil {
+		return nil, err
+	}
+
 	data, err := codec.Marshal(crds)
 	if err != nil {
 		return nil, err

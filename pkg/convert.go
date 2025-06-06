@@ -26,9 +26,13 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
 
 var metadataProp = extensionv1.JSONSchemaProps{Type: "object"}
 
+type Converter struct {
+	Domain string
+}
+
 // https://github.com/kubernetes-sigs/controller-tools/blob/main/pkg/crd/gen.go
 
-func Convert(spec *schema.Resource) *extensionv1.CustomResourceDefinition {
+func (c Converter) Convert(spec *schema.Resource) *extensionv1.CustomResourceDefinition {
 	plural := resource.RegularPlural(spec.Token) // TODO: Extract name
 
 	return &extensionv1.CustomResourceDefinition{
@@ -36,7 +40,7 @@ func Convert(spec *schema.Resource) *extensionv1.CustomResourceDefinition {
 			Name: spec.Token,
 		},
 		Spec: extensionv1.CustomResourceDefinitionSpec{
-			Group: "",
+			Group: c.Domain,
 			Names: extensionv1.CustomResourceDefinitionNames{
 				Plural:   plural,
 				Singular: spec.Token,
@@ -68,27 +72,39 @@ func Convert(spec *schema.Resource) *extensionv1.CustomResourceDefinition {
 	}
 }
 
-func ConvertResources(spec *schema.Package) []*extensionv1.CustomResourceDefinition {
+func ConvertResources(spec *schema.Package) ([]*extensionv1.CustomResourceDefinition, error) {
+	c := Converter{}
+
 	crds := []*extensionv1.CustomResourceDefinition{}
 	for _, r := range spec.Resources {
-		crds = append(crds, Convert(r))
+		crds = append(crds, c.Convert(r))
 	}
 
-	return crds
+	return crds, nil
 }
 
 func ConvertTypes(spec schema.Package) map[string]extensionv1.JSONSchemaProps {
 	types := map[string]extensionv1.JSONSchemaProps{}
 	for _, t := range spec.Types {
-		// TODO: I suppose the name will have to be extracted from the underlying type
-		types[t.String()] = ConvertType(t)
+		switch typ := t.(type) {
+		case *schema.ObjectType:
+			types[typ.Token] = ConvertObjectType(typ)
+		}
 	}
 
 	return types
 }
 
-func ConvertType(typ schema.Type) extensionv1.JSONSchemaProps {
-	return extensionv1.JSONSchemaProps{}
+func ConvertObjectType(typ *schema.ObjectType) extensionv1.JSONSchemaProps {
+	props := map[string]extensionv1.JSONSchemaProps{}
+	for _, p := range typ.Properties {
+		props[p.Name] = extensionv1.JSONSchemaProps{} // TODO
+	}
+
+	return extensionv1.JSONSchemaProps{
+		Description: typ.Comment,
+		Properties:  props,
+	}
 }
 
 func Spec(spec *schema.Resource) extensionv1.JSONSchemaProps {

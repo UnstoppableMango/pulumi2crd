@@ -18,8 +18,9 @@ var _ = Describe("Convert", func() {
 	It("should work", func() {
 		const name = "baremetal:coreutils:Cat"
 
-		crds := pulumi2crd.ConvertResources(pkg)
+		crds, err := pulumi2crd.ConvertResources(pkg)
 
+		Expect(err).NotTo(HaveOccurred())
 		Expect(crds).NotTo(BeEmpty())
 		// Expect(crds.Name).To(Equal(name))
 		// Expect(crds.Spec.Names.Plural).To(Equal("Cats"))
