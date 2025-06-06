@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  pull_request:
+    branches: ['main']
+    paths:
+      - .github/workflows/release.yml
+      - .goreleaser.yaml
+  push:
+    tags: ['v*.*.*']
+
+jobs:
+  goreleaser:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache-dependency-path: go.sum
+
+      - uses: goreleaser/goreleaser-action@v6
+        if: github.event_name == 'pull_request'
+        with:
+          version: '~> v2'
+          args: release --snapshot
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          # Disable the monorepo feature
+          GORELEASER_CURRENT_TAG: v0.0.1
+          GORELEASER_PREVIOUS_TAG: v0.0.1-alpha
+
+      - uses: goreleaser/goreleaser-action@v6
+        if: github.event_name != 'pull_request'
+        with:
+          version: '~> v2'
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
