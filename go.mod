@@ -12,7 +12,7 @@ require (
 	github.com/onsi/ginkgo/v2 v2.23.4
 	github.com/onsi/gomega v1.37.0
 	github.com/pulumi/pulumi/pkg/v3 v3.175.0
-	github.com/unstoppablemango/ux v0.0.3
+	github.com/unstoppablemango/ux v0.0.4
 	github.com/unstoppablemango/ux/sdk v0.0.0-20250605140044-6c187b57844a
 	gopkg.in/yaml.v3 v3.0.1
 	k8s.io/apiextensions-apiserver v0.33.1
