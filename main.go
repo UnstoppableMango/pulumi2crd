@@ -1,15 +1,12 @@
 package main
 
 import (
-	pulumi2crd "github.com/unstoppablemango/pulumi2crd/pkg"
-	"github.com/unstoppablemango/ux/sdk/plugin/cli"
-	"github.com/unstoppablemango/ux/sdk/plugin/cmd"
+	"github.com/unmango/go/cli"
+	"github.com/unstoppablemango/pulumi2crd/cmd"
 )
 
-var Cli = cli.New(pulumi2crd.Plugin)
-
 func main() {
-	if err := cmd.Execute("pulumi2crd", Cli); err != nil {
+	if err := cmd.Execute(); err != nil {
 		cli.Fail(err)
 	}
 }
