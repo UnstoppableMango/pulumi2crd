@@ -12,6 +12,8 @@ require (
 	github.com/onsi/ginkgo/v2 v2.23.4
 	github.com/onsi/gomega v1.37.0
 	github.com/pulumi/pulumi/pkg/v3 v3.177.0
+	github.com/spf13/cobra v1.9.1
+	github.com/unmango/go v0.4.1
 	github.com/unstoppablemango/ux v0.0.4
 	github.com/unstoppablemango/ux/sdk v0.0.0-20250614212724-9cc64f215923
 	gopkg.in/yaml.v3 v3.0.1
@@ -238,7 +240,6 @@ require (
 	github.com/sourcegraph/go-diff v0.7.0 // indirect
 	github.com/spf13/afero v1.14.0 // indirect
 	github.com/spf13/cast v1.7.1 // indirect
-	github.com/spf13/cobra v1.9.1 // indirect
 	github.com/spf13/pflag v1.0.6 // indirect
 	github.com/spf13/viper v1.20.1 // indirect
 	github.com/ssgreg/nlreturn/v2 v2.2.1 // indirect
@@ -257,6 +258,7 @@ require (
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
 	github.com/ultraware/funlen v0.2.0 // indirect
 	github.com/ultraware/whitespace v0.2.0 // indirect
+	github.com/unmango/aferox v0.1.2 // indirect
 	github.com/unmango/aferox/github v0.0.1 // indirect
 	github.com/unmango/devctl v0.1.8 // indirect
 	github.com/unmango/go v0.4.1 // indirect
