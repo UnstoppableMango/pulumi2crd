@@ -12,6 +12,10 @@ import (
 	"github.com/unstoppablemango/ux/sdk/plugin/cli"
 )
 
+func init() {
+	rootCmd.AddCommand(generateCmd)
+}
+
 var generateCmd = &cobra.Command{
 	Use:     "generate",
 	Short:   "Generate directly without ux",
