@@ -46,7 +46,7 @@ jobs:
       DPRINT_VERSION: 0.50.0
     steps:
       - uses: actions/checkout@v4
-      - uses: dprint/check@v2.2
+      - uses: dprint/check@v2.3
         with:
           dprint-version: ${{ env.DPRINT_VERSION }}
 
