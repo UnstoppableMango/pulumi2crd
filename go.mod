@@ -260,7 +260,6 @@ require (
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
 	github.com/ultraware/funlen v0.2.0 // indirect
 	github.com/ultraware/whitespace v0.2.0 // indirect
-	github.com/unmango/aferox v0.1.2 // indirect
 	github.com/unmango/aferox/github v0.0.1 // indirect
 	github.com/unmango/aferox/protofs v0.0.7 // indirect
 	github.com/unmango/devctl v0.2.1 // indirect
