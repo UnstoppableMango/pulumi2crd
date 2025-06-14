@@ -11,7 +11,7 @@ tool (
 require (
 	github.com/onsi/ginkgo/v2 v2.23.4
 	github.com/onsi/gomega v1.37.0
-	github.com/pulumi/pulumi/pkg/v3 v3.175.0
+	github.com/pulumi/pulumi/pkg/v3 v3.177.0
 	github.com/unstoppablemango/ux v0.0.4
 	github.com/unstoppablemango/ux/sdk v0.0.0-20250605140044-6c187b57844a
 	gopkg.in/yaml.v3 v3.0.1
@@ -75,7 +75,7 @@ require (
 	github.com/chavacava/garif v0.1.0 // indirect
 	github.com/cheggaaa/pb v1.0.29 // indirect
 	github.com/ckaznocha/intrange v0.3.1 // indirect
-	github.com/cloudflare/circl v1.3.7 // indirect
+	github.com/cloudflare/circl v1.6.1 // indirect
 	github.com/containerd/console v1.0.4-0.20230313162750-1ae8d489ac81 // indirect
 	github.com/curioswitch/go-reassign v0.3.0 // indirect
 	github.com/cyphar/filepath-securejoin v0.3.6 // indirect
@@ -208,7 +208,7 @@ require (
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/esc v0.14.2 // indirect
-	github.com/pulumi/pulumi/sdk/v3 v3.175.0 // indirect
+	github.com/pulumi/pulumi/sdk/v3 v3.177.0 // indirect
 	github.com/quasilyte/go-ruleguard v0.4.4 // indirect
 	github.com/quasilyte/go-ruleguard/dsl v0.3.22 // indirect
 	github.com/quasilyte/gogrep v0.5.0 // indirect
@@ -289,7 +289,7 @@ require (
 	golang.org/x/term v0.32.0 // indirect
 	golang.org/x/text v0.25.0 // indirect
 	golang.org/x/tools v0.33.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250505200425-f936aa4a68b2 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250519155744-55703ea1f237 // indirect
 	google.golang.org/grpc v1.72.2 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
