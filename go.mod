@@ -258,10 +258,8 @@ require (
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
 	github.com/ultraware/funlen v0.2.0 // indirect
 	github.com/ultraware/whitespace v0.2.0 // indirect
-	github.com/unmango/aferox v0.1.2 // indirect
 	github.com/unmango/aferox/github v0.0.1 // indirect
 	github.com/unmango/devctl v0.1.8 // indirect
-	github.com/unmango/go v0.4.1 // indirect
 	github.com/uudashr/gocognit v1.2.0 // indirect
 	github.com/uudashr/iface v1.3.1 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
