@@ -23,19 +23,18 @@ var Plugin = plugin.New(
 	}),
 )
 
-type Generator struct {
-	plugin.WithFs
-}
+type Generator struct{}
 
 // Generate implements ux.Generator.
 func (g Generator) Generate(ctx context.Context, req *uxv1alpha1.GenerateRequest) (*uxv1alpha1.GenerateResponse, error) {
-	if g.Fs == nil {
-		return nil, fmt.Errorf("no output fs")
+	fs, err := plugin.OutputFs(req)
+	if err != nil {
+		return nil, err
 	}
 
 	outputs := []*filev1alpha1.File{}
 	for _, i := range req.Inputs {
-		f, err := g.Fs.Open(i.Name)
+		f, err := fs.Open(i.Name)
 		if err != nil {
 			return nil, err
 		}
@@ -80,7 +79,7 @@ func (g Generator) Generate(ctx context.Context, req *uxv1alpha1.GenerateRequest
 			}
 
 			name := fmt.Sprint(crd.ObjectMeta.Name, ".yml")
-			if err = afero.WriteFile(g.Fs, name, yaml, os.ModePerm); err != nil {
+			if err = afero.WriteFile(fs, name, yaml, os.ModePerm); err != nil {
 				return nil, err
 			}
 
