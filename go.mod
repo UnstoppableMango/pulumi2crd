@@ -19,8 +19,8 @@ require (
 	github.com/unstoppablemango/ux v0.0.5
 	github.com/unstoppablemango/ux/sdk v0.0.0-20250615182547-2f6de68ca016
 	gopkg.in/yaml.v3 v3.0.1
-	k8s.io/apiextensions-apiserver v0.33.1
-	k8s.io/apimachinery v0.33.1
+	k8s.io/apiextensions-apiserver v0.33.2
+	k8s.io/apimachinery v0.33.2
 	sigs.k8s.io/kubebuilder/v4 v4.6.0
 )
 
