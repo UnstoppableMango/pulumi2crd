@@ -78,7 +78,7 @@ func (g Generator) Generate(ctx context.Context, req *uxv1alpha1.GenerateRequest
 				return nil, err
 			}
 
-			name := fmt.Sprint(crd.ObjectMeta.Name, ".yml")
+			name := fmt.Sprint(crd.Name, ".yml")
 			if err = afero.WriteFile(fs, name, yaml, os.ModePerm); err != nil {
 				return nil, err
 			}
