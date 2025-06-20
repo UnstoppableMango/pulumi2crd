@@ -2,10 +2,16 @@ package pulumi2crd
 
 import (
 	"context"
+	"fmt"
+	"io"
+	"os"
+	"path/filepath"
 
+	filev1alpha1 "buf.build/gen/go/unmango/protofs/protocolbuffers/go/dev/unmango/file/v1alpha1"
 	"github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+	"github.com/spf13/afero"
+	"github.com/unmango/go/codec"
 	uxv1alpha1 "github.com/unstoppablemango/ux/gen/dev/unmango/ux/v1alpha1"
-	"github.com/unstoppablemango/ux/pkg/payload"
 	"github.com/unstoppablemango/ux/sdk/plugin"
 )
 
@@ -21,40 +27,69 @@ type Generator struct{}
 
 // Generate implements ux.Generator.
 func (g Generator) Generate(ctx context.Context, req *uxv1alpha1.GenerateRequest) (*uxv1alpha1.GenerateResponse, error) {
-	codec, err := payload.Codec(req.Payload)
+	fs, err := plugin.OutputFs(req)
 	if err != nil {
 		return nil, err
 	}
 
-	var spec schema.PackageSpec
-	if err = codec.Unmarshal(req.Payload.Data, &spec); err != nil {
-		return nil, err
+	outputs := []*filev1alpha1.File{}
+	for _, i := range req.Inputs {
+		f, err := fs.Open(i.Name)
+		if err != nil {
+			return nil, err
+		}
+
+		data, err := io.ReadAll(f)
+		if err != nil {
+			return nil, err
+		}
+
+		var c codec.Codec
+		switch filepath.Ext(f.Name()) {
+		case ".json":
+			c = codec.Json
+		case ".yaml", ".yml":
+			c = codec.GoYaml
+		default:
+			return nil, fmt.Errorf("unsupported file type: %s", f.Name())
+		}
+
+		var spec schema.PackageSpec
+		if err := c.Unmarshal(data, &spec); err != nil {
+			return nil, err
+		}
+
+		pkg, err := schema.ImportSpec(spec,
+			map[string]schema.Language{},
+			schema.ValidationOptions{},
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		crds, err := ConvertResources(pkg)
+		if err != nil {
+			return nil, err
+		}
+
+		for _, crd := range crds {
+			yaml, err := codec.GoYaml.Marshal(crd)
+			if err != nil {
+				return nil, err
+			}
+
+			name := fmt.Sprint(crd.Name, ".yml")
+			if err = afero.WriteFile(fs, name, yaml, os.ModePerm); err != nil {
+				return nil, err
+			}
+
+			outputs = append(outputs, &filev1alpha1.File{
+				Name: name,
+			})
+		}
 	}
 
-	pkg, err := schema.ImportSpec(spec,
-		map[string]schema.Language{},
-		schema.ValidationOptions{},
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	crds, err := ConvertResources(pkg)
-	if err != nil {
-		return nil, err
-	}
-
-	data, err := codec.Marshal(crds)
-	if err != nil {
-		return nil, err
-	}
-
-	res := &uxv1alpha1.GenerateResponse{
-		Payload: &uxv1alpha1.Payload{
-			ContentType: "application/yaml", // TODO
-			Data:        data,
-		},
-	}
-
-	return res, nil
+	return &uxv1alpha1.GenerateResponse{
+		Outputs: outputs,
+	}, nil
 }
