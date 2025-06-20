@@ -597,6 +597,8 @@ github.com/unstoppablemango/ux v0.0.5 h1:UrvuWx3oT9bos/NObPWWoBHwmYdTFgfZ8GtOUSn
 github.com/unstoppablemango/ux v0.0.5/go.mod h1:Gi/9rr6tkJyU/VeUkjYKso65XO7i8vDCEclKA/GvVaY=
 github.com/unstoppablemango/ux/sdk v0.0.0-20250615182547-2f6de68ca016 h1:YNfV7KhzFUx0QytNvqD7TRidQIcGoX73Znqf/LyqVJU=
 github.com/unstoppablemango/ux/sdk v0.0.0-20250615182547-2f6de68ca016/go.mod h1:JbsBlWSsz3k67hn3mZIrJ25utBpMI/IWfZ8W9DkaMpA=
+github.com/unstoppablemango/ux/sdk v0.0.0-20250616011925-7e4137c80e2a h1:0KHSo5pCekgGy4twS1dghfgdBPafBJ6AeVLi+uI4m/c=
+github.com/unstoppablemango/ux/sdk v0.0.0-20250616011925-7e4137c80e2a/go.mod h1:Ew1/kDVLNM2z8Kny8bk9vwpItQ+vnOWrH/j7Gq3k8yM=
 github.com/uudashr/gocognit v1.2.0 h1:3BU9aMr1xbhPlvJLSydKwdLN3tEUUrzPSSM8S4hDYRA=
 github.com/uudashr/gocognit v1.2.0/go.mod h1:k/DdKPI6XBZO1q7HgoV2juESI2/Ofj9AcHPZhBBdrTU=
 github.com/uudashr/iface v1.4.0 h1:ImZ+1oEJPXvjap7nK0md7gA9RRH7PMp4vliaLkJ2+cg=
