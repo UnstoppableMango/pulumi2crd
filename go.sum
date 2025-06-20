@@ -590,6 +590,8 @@ github.com/unmango/aferox/github v0.0.1 h1:RbW0a7N7mDk5TkhxcEtDt9voaVYRoWKmfNql/
 github.com/unmango/aferox/github v0.0.1/go.mod h1:SZzx1l0WkKOO6+7Mc6UpJ4nuMYEiZiiaTOsejpwzndY=
 github.com/unmango/aferox/protofs v0.0.6 h1:jO5N2iN2pbsymT1ipFANEA9wKrqbtv7Frm4s0FF5A2E=
 github.com/unmango/aferox/protofs v0.0.6/go.mod h1:Rq+fL+ZogfmnmRwKNDD538RB01rgKcCpcXInAX7EoS0=
+github.com/unmango/aferox/protofs v0.0.7 h1:o2FUYJ2Iy5qc7u2mrNlTE3oTXyxRu+KfGdoGU5xqqz8=
+github.com/unmango/aferox/protofs v0.0.7/go.mod h1:Rq+fL+ZogfmnmRwKNDD538RB01rgKcCpcXInAX7EoS0=
 github.com/unmango/devctl v0.1.8 h1:V1XNCUrmb49kyTSPucYdRJMpbfLlxVN0iF94Nn3kc2A=
 github.com/unmango/devctl v0.1.8/go.mod h1:zV9+S++COp6oqmAT6GzSEH6EBPZ3rbqdleTGOd53QJc=
 github.com/unmango/go v0.4.1 h1:EAIO7La54FQzzhN8nmPGiPTqrXfk8vp/+1UBsX6L4EY=

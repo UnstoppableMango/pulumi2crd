@@ -260,7 +260,7 @@ require (
 	github.com/ultraware/funlen v0.2.0 // indirect
 	github.com/ultraware/whitespace v0.2.0 // indirect
 	github.com/unmango/aferox/github v0.0.1 // indirect
-	github.com/unmango/aferox/protofs v0.0.6 // indirect
+	github.com/unmango/aferox/protofs v0.0.7 // indirect
 	github.com/unmango/devctl v0.1.8 // indirect
 	github.com/uudashr/gocognit v1.2.0 // indirect
 	github.com/uudashr/iface v1.4.0 // indirect
