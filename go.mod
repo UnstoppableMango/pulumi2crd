@@ -1,6 +1,6 @@
 module github.com/unstoppablemango/pulumi2crd
 
-go 1.24.3
+go 1.24.4
 
 tool (
 	github.com/golangci/golangci-lint/v2/cmd/golangci-lint
@@ -15,7 +15,7 @@ require (
 	github.com/onsi/gomega v1.37.0
 	github.com/pulumi/pulumi/pkg/v3 v3.177.0
 	github.com/spf13/afero v1.14.0
-	github.com/unmango/go v0.4.1
+	github.com/unmango/go v0.5.0
 	github.com/unstoppablemango/ux v0.0.5
 	github.com/unstoppablemango/ux/sdk v0.0.0-20250615182547-2f6de68ca016
 	gopkg.in/yaml.v3 v3.0.1
