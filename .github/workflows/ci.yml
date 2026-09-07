@@ -43,7 +43,7 @@ jobs:
     if: github.event_name == 'pull_request'
     env:
       # renovate: datasource=github-tags depName=dprint/dprint
-      DPRINT_VERSION: 0.50.0
+      DPRINT_VERSION: 0.57.4
     steps:
       - uses: actions/checkout@v4
       - uses: dprint/check@v2.3
