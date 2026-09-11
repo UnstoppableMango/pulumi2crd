@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-go@v5
         with:
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-go@v5
         with:
@@ -45,7 +45,7 @@ jobs:
       # renovate: datasource=github-tags depName=dprint/dprint
       DPRINT_VERSION: 0.57.4
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dprint/check@v2.3
         with:
           dprint-version: ${{ env.DPRINT_VERSION }}
