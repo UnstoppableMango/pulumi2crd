@@ -14,7 +14,7 @@ require (
 	github.com/onsi/ginkgo/v2 v2.32.2
 	github.com/onsi/gomega v1.43.0
 	github.com/pulumi/pulumi/pkg/v3 v3.177.0
-	github.com/spf13/afero v1.14.0
+	github.com/spf13/afero v1.15.0
 	github.com/unmango/go v0.5.0
 	github.com/unstoppablemango/ux v0.0.5
 	github.com/unstoppablemango/ux/sdk v0.0.0-20250616011925-7e4137c80e2a
