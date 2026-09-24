@@ -1,5 +1,7 @@
 # pulumi2crd
 
+[![Hercules CI](https://hercules-ci.com/api/v1/site/github/account/UnstoppableMango/project/pulumi2crd/badge)](https://hercules-ci.com/github/UnstoppableMango/pulumi2crd)
+
 Similar to [crd2pulumi](https://github.com/pulumi/crd2pulumi) but backwards.
 Intended for consumption with [ux](https://github.com/UnstoppableMango/ux).
 
