@@ -10,7 +10,7 @@ tool (
 )
 
 require (
-	buf.build/gen/go/unmango/protofs/protocolbuffers/go v1.36.12-20250613050322-304b4fb5d9b0.2
+	buf.build/gen/go/unmango/protofs/protocolbuffers/go v1.36.12-20260930133016-22b2f9f94e79.2
 	github.com/onsi/ginkgo/v2 v2.32.2
 	github.com/onsi/gomega v1.44.0
 	github.com/pulumi/pulumi/pkg/v3 v3.177.0
