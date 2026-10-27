@@ -11,7 +11,7 @@ tool (
 
 require (
 	buf.build/gen/go/unmango/protofs/protocolbuffers/go v1.36.12-20260930133016-22b2f9f94e79.2
-	github.com/onsi/ginkgo/v2 v2.32.2
+	github.com/onsi/ginkgo/v2 v2.33.1
 	github.com/onsi/gomega v1.44.0
 	github.com/pulumi/pulumi/pkg/v3 v3.177.0
 	github.com/spf13/afero v1.15.0
