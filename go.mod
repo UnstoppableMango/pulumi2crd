@@ -15,9 +15,9 @@ require (
 	github.com/onsi/gomega v1.43.0
 	github.com/pulumi/pulumi/pkg/v3 v3.177.0
 	github.com/spf13/afero v1.15.0
-	github.com/unmango/go v0.5.0
+	github.com/unmango/go v0.5.1
 	github.com/unstoppablemango/ux v0.0.5
-	github.com/unstoppablemango/ux/sdk v0.0.0-20250616011925-7e4137c80e2a
+	github.com/unstoppablemango/ux/sdk v0.0.0-20250904175750-3be90dc11c5b
 	gopkg.in/yaml.v3 v3.0.1
 	k8s.io/apiextensions-apiserver v0.37.1
 	k8s.io/apimachinery v0.37.1
@@ -278,7 +278,7 @@ require (
 	github.com/ultraware/whitespace v0.2.0 // indirect
 	github.com/unmango/aferox/github v0.0.1 // indirect
 	github.com/unmango/aferox/protofs v0.0.7 // indirect
-	github.com/unmango/devctl v0.2.1 // indirect
+	github.com/unmango/devctl v0.3.0 // indirect
 	github.com/uudashr/gocognit v1.2.1 // indirect
 	github.com/uudashr/iface v1.5.1 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
@@ -295,7 +295,7 @@ require (
 	go.augendre.info/arangolint v0.4.0 // indirect
 	go.augendre.info/fatcontext v0.10.1 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
-	go.uber.org/mock v0.5.2 // indirect
+	go.uber.org/mock v0.6.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.1 // indirect
 	go.yaml.in/yaml/v2 v2.4.4 // indirect
