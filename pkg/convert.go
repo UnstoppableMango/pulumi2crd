@@ -83,7 +83,7 @@ func (c Converter) Group() string {
 	return fmt.Sprintf("%s.%s", c.GroupName, c.Domain)
 }
 
-func ConvertTypes(spec schema.Package) map[string]extensionv1.JSONSchemaProps {
+func ConvertTypes(spec *schema.Package) map[string]extensionv1.JSONSchemaProps {
 	types := map[string]extensionv1.JSONSchemaProps{}
 	for _, typ := range spec.Types {
 		ConvertType(types, typ)

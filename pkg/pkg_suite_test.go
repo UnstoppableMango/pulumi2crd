@@ -25,7 +25,7 @@ func parsePackageData(data []byte) *schema.Package {
 
 	var spec schema.PackageSpec
 	Expect(yaml.Unmarshal(data, &spec)).To(Succeed())
-	pkg, err := schema.ImportSpec(spec, map[string]schema.Language{}, schema.ValidationOptions{})
+	pkg, err := schema.ImportSpec(spec, map[string]schema.Language{}, schema.NewNullLoader(), schema.ValidationOptions{})
 	Expect(err).NotTo(HaveOccurred())
 
 	return pkg

@@ -9,15 +9,16 @@ import (
 
 	filev1alpha1 "buf.build/gen/go/unmango/protofs/protocolbuffers/go/dev/unmango/file/v1alpha1"
 	"github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+	"github.com/pulumi/pulumi/pkg/v3/resource/plugin"
 	"github.com/spf13/afero"
 	"github.com/unmango/go/codec"
 	uxv1alpha1 "github.com/unstoppablemango/ux/gen/dev/unmango/ux/v1alpha1"
-	"github.com/unstoppablemango/ux/sdk/plugin"
+	uxplugin "github.com/unstoppablemango/ux/sdk/plugin"
 )
 
-var Plugin = plugin.New(
-	plugin.WithGenerator(Generator{}),
-	plugin.WithCapabilities(&uxv1alpha1.Capability{
+var Plugin = uxplugin.New(
+	uxplugin.WithGenerator(Generator{}),
+	uxplugin.WithCapabilities(&uxv1alpha1.Capability{
 		From: "pulumi",
 		To:   "crd",
 	}),
@@ -27,7 +28,7 @@ type Generator struct{}
 
 // Generate implements ux.Generator.
 func (g Generator) Generate(ctx context.Context, req *uxv1alpha1.GenerateRequest) (*uxv1alpha1.GenerateResponse, error) {
-	fs, err := plugin.OutputFs(req)
+	fs, err := uxplugin.OutputFs(req)
 	if err != nil {
 		return nil, err
 	}
@@ -59,10 +60,7 @@ func (g Generator) Generate(ctx context.Context, req *uxv1alpha1.GenerateRequest
 			return nil, err
 		}
 
-		pkg, err := schema.ImportSpec(spec,
-			map[string]schema.Language{},
-			schema.ValidationOptions{},
-		)
+		pkg, err := importSpec(ctx, spec)
 		if err != nil {
 			return nil, err
 		}
@@ -92,4 +90,25 @@ func (g Generator) Generate(ctx context.Context, req *uxv1alpha1.GenerateRequest
 	return &uxv1alpha1.GenerateResponse{
 		Outputs: outputs,
 	}, nil
+}
+
+// importSpec binds spec with a plugin loader, the default ImportSpec used
+// before it required callers to supply one.
+func importSpec(ctx context.Context, spec schema.PackageSpec) (*schema.Package, error) {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return nil, err
+	}
+
+	pctx, err := plugin.NewContext(ctx, nil, nil, nil, nil, cwd, nil, false, nil)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { _ = pctx.Close() }()
+
+	return schema.ImportSpec(spec,
+		map[string]schema.Language{},
+		schema.NewPluginLoader(pctx),
+		schema.ValidationOptions{},
+	)
 }
